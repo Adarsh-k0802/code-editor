@@ -9,45 +9,63 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { defineTheme } from "../lib/defineTheme";
 import useKeyPress from "../hooks/useKeyPress";
-import Footer from "./Footer";
+// import Footer from "./Footer";
 import OutputWindow from "./OutputWindow";
 import CustomInput from "./CustomInput";
 import OutputDetails from "./OutputDetails";
 import ThemeDropdown from "./ThemeDropdown";
 import LanguagesDropdown from "./LanguagesDropdown";
 
-const javascriptDefault = `/**
-* Problem: Binary Search: Search a sorted array for a target value.
-*/
-
-// Time: O(log n)
-const binarySearch = (arr, target) => {
- return binarySearchHelper(arr, target, 0, arr.length - 1);
-};
-
-const binarySearchHelper = (arr, target, start, end) => {
- if (start > end) {
-   return false;
- }
- let mid = Math.floor((start + end) / 2);
- if (arr[mid] === target) {
-   return mid;
- }
- if (arr[mid] < target) {
-   return binarySearchHelper(arr, target, mid + 1, end);
- }
- if (arr[mid] > target) {
-   return binarySearchHelper(arr, target, start, mid - 1);
- }
-};
-
-const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const target = 5;
-console.log(binarySearch(arr, target));
+const cppDefault = `// C++ program to check if given array
+// has 2 elements whose sum is equal
+// to the given value
+ 
+#include <bits/stdc++.h>
+using namespace std;
+ 
+// Function to check if array has 2 elements
+// whose sum is equal to the given value
+bool hasArrayTwoCandidates(int A[], int arr_size, int sum)
+{
+    int l, r;
+ 
+    /* Sort the elements */
+    sort(A, A + arr_size);
+ 
+    /* Now look for the two candidates in
+       the sorted array*/
+    l = 0;
+    r = arr_size - 1;
+    while (l < r) {
+        if (A[l] + A[r] == sum)
+            return 1;
+        else if (A[l] + A[r] < sum)
+            l++;
+        else // A[l] + A[r] > sum
+            r--;
+    }
+    return 0;
+}
+ 
+/* Driver program to test above function */
+int main()
+{
+    int A[] = { 1, 4, 45, 6, 10, -8 };
+    int n = 16;
+    int arr_size = sizeof(A) / sizeof(A[0]);
+ 
+    // Function calling
+    if (hasArrayTwoCandidates(A, arr_size, n))
+        cout << "Yes";
+    else
+        cout << "No";
+ 
+    return 0;
+}
 `;
 
 const Landing = () => {
-  const [code, setCode] = useState(javascriptDefault);
+  const [code, setCode] = useState(cppDefault);
   const [customInput, setCustomInput] = useState("");
   const [outputDetails, setOutputDetails] = useState(null);
   const [processing, setProcessing] = useState(null);
@@ -90,7 +108,7 @@ const Landing = () => {
     };
     const options = {
       method: "POST",
-      url: process.env.REACT_APP_RAPID_API_URL,
+      url: 'https://judge0-ce.p.rapidapi.com/submissions',
       params: { base64_encoded: "true", fields: "*" },
       headers: {
         "content-type": "application/json",
@@ -129,7 +147,7 @@ const Landing = () => {
   const checkStatus = async (token) => {
     const options = {
       method: "GET",
-      url: process.env.REACT_APP_RAPID_API_URL + "/" + token,
+      url: 'https://judge0-ce.p.rapidapi.com/submissions/'+ token,
       params: { base64_encoded: "true", fields: "*" },
       headers: {
         "X-RapidAPI-Host": process.env.REACT_APP_RAPID_API_HOST,
@@ -214,7 +232,7 @@ const Landing = () => {
         pauseOnHover
       />
 
-      <a
+      {/* <a
         href="https://github.com/manuarora700/react-code-editor"
         title="Fork me on GitHub"
         class="github-corner"
@@ -241,7 +259,7 @@ const Landing = () => {
             class="octo-body"
           ></path>
         </svg>
-      </a>
+      </a> */}
 
       <div className="h-4 w-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500"></div>
       <div className="flex flex-row">
@@ -283,7 +301,7 @@ const Landing = () => {
           {outputDetails && <OutputDetails outputDetails={outputDetails} />}
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
