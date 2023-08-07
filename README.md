@@ -3,7 +3,6 @@
 ⚡️ A code editor that compiles and runs your code on the web.
 
 
-![Uploading image.png…]()
 
 
 ## Features: 
