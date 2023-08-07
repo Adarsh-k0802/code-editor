@@ -3,7 +3,8 @@
 ⚡️ A code editor that compiles and runs your code on the web.
 
 
-<img src="https://github.com/manuarora700/react-code-editor/blob/main/demo.png" />
+![Uploading image.png…]()
+
 
 ## Features: 
 - Compile and execute code in 40+ programming languages.
